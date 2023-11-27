@@ -3,6 +3,7 @@ import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shoppinglist.service';
 import { Subscription} from 'rxjs';
 import { TemplateBindingParseResult } from '@angular/compiler';
+import { LoggingService } from '../logging.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -14,7 +15,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients:Ingredient[];
   private shoppingListSubscription: Subscription;
 
-  constructor(private shoppingListService : ShoppingListService) {
+  constructor(private shoppingListService : ShoppingListService,
+      private logService: LoggingService) {
   }
 
   ngOnInit(): void {
@@ -24,6 +26,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
         console.log('IngredientAdded EVent at shoppingListy', ingredients);
         this.ingredients = ingredients;
     });
+    this.logService.printLog('Hello from ShoppingListComponent ngOnInit');
   }
 
   ngOnDestroy(): void {
